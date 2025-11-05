@@ -2,8 +2,9 @@ name: Daily Code Review Assignment
 
 on:
   schedule:
-    # 매일 오전 9시 30분 (한국시간 = UTC 0:30)
-    - cron: "30 0 * * *"
+    # 평일 오전 9시 30분 (한국시간 = UTC 0:30)
+    # 요일 필드: 1=월요일, 5=금요일
+    - cron: "30 0 * * 1-5"
   workflow_dispatch: # 수동 실행 가능
 
 jobs:

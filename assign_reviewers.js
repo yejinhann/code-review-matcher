@@ -36,6 +36,7 @@ function createSlackMessage(assignments) {
     year: "numeric",
     month: "long",
     day: "numeric",
+    weekday: "long",
   });
   const emoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
 
@@ -79,7 +80,7 @@ function createSlackMessage(assignments) {
     elements: [
       {
         type: "mrkdwn",
-        text: "💡 _서로의 코드에서 배우는 하루 되세요!_ 🎉",
+        text: " _서로의 코드에서 배우는 하루 되세요!_ 😉",
       },
     ],
   });
@@ -127,7 +128,19 @@ function sendToSlack(message) {
   req.end();
 }
 
+// 주말 체크
+function isWeekday() {
+  const day = new Date().getDay();
+  // 0 = 일요일, 6 = 토요일
+  return day !== 0 && day !== 6;
+}
+
 // 메인 실행
+if (!isWeekday()) {
+  console.log("주말에는 코드 리뷰 매칭을 실행하지 않습니다.");
+  process.exit(0);
+}
+
 console.log("🎲 코드 리뷰 매칭 시작...\n");
 
 const assignments = createAssignments();
